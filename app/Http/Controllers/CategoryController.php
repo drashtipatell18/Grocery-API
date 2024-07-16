@@ -49,13 +49,14 @@ class CategoryController extends Controller
 
     }
 
-    public function categoryUpdate(Request $request, $id)
+    public function categoryUpdate(Request $request)
     {
         $request->validate([
+           'id' => 'required|exists:categories,id',
             'category_name' => 'required|string|max:255',
         ]);
 
-        $category = Category::find($id);
+        $category = Category::find($request->input('id'));
 
         if (!$category) {
             return response()->json(['error' => 'Category not found'], 404);
@@ -69,6 +70,7 @@ class CategoryController extends Controller
 
         // Update category name
         $category->update([
+            'id' => $request->input('id'),
             'category_name' => $request->input('category_name')
         ]);
 
@@ -77,10 +79,9 @@ class CategoryController extends Controller
 
     }
 
-    public function categoryDestroy($id)
+    public function categoryDestroy(Request $request)
     {
-        $category = Category::find($id);
-
+        $category = Category::find($request->input('id'));
         if (!$category) {
             return response()->json(['message' => 'Category not found'], 404);
         }

@@ -60,8 +60,9 @@ class SalesMasterController extends Controller
         return response()->json(['message' => 'Sales master Created successfully', 'salesmaster' => $salesmaster], 201);
     }
 
-    public function salesmasterUpdate(Request $request, $id){
+    public function salesmasterUpdate(Request $request){
         $validateRequest = Validator::make($request->all(), [
+            'id' => 'required|exists:sales_masters,id',
             'user_id' => 'required',
             'coupon_id' => 'required',
             'user_address_id' => 'required',
@@ -79,7 +80,7 @@ class SalesMasterController extends Controller
             ], 403);
         }
 
-        $salesmaster = SalesMaster::find($id);
+        $salesmaster = SalesMaster::find($request->input('id'));
 
 
         if (is_null($salesmaster)) {
@@ -87,6 +88,7 @@ class SalesMasterController extends Controller
         }
 
         $salesmaster->update([
+            'id' => $request->input('id'),
             'user_id'      => $request->input('user_id'),
             'coupon_id'  => $request->input('coupon_id'),
             'user_address_id'  => $request->input('user_address_id'),
@@ -102,8 +104,8 @@ class SalesMasterController extends Controller
         ], 200);
 
     }
-    public function salesmasterDestroy($id){
-        $salesmaster = SalesMaster::find($id);
+    public function salesmasterDestroy(Request $request){
+        $salesmaster = SalesMaster::find($request->input('id'));
         if (!$salesmaster) {
             return response()->json(['message' => 'salesmaster not found'], 404);
         }

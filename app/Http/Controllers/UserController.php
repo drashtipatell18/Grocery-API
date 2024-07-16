@@ -58,9 +58,10 @@ class UserController extends Controller
 
 
 
-    public function userUpdate(Request $request, $id)
+    public function userUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id',
             'name' => 'required',
             'email' => 'required',
             'address' => 'required',
@@ -75,13 +76,14 @@ class UserController extends Controller
             ], 401);
         }
 
-        $users = User::find($id);
+        $users = User::find($request->input('id'));
 
         if (is_null($users)) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
         $users->update([
+            'id' => $request->input('id'),
             'name'      => $request->input('name'),
             'email'     => $request->input('email'),
             'address'  => $request->input('address'),
@@ -96,9 +98,9 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function userDestroy($id)
+    public function userDestroy(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->input('id'));
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }

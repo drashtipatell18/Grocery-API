@@ -74,9 +74,10 @@ class ProductImageController extends Controller
     }
 
 
-    public function productsImageUpdate(Request $request,$id)
+    public function productsImageUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:product_image,id',
             'product_id' => 'required|exists:products,id',
             'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Allow multiple images
         ]);
@@ -89,7 +90,7 @@ class ProductImageController extends Controller
             ], 401);
         }
 
-        $productImage = ProductImage::findOrFail($id);
+        $productImage = ProductImage::findOrFail($request->input('id'));
 
         if (is_null($productImage)) {
             return response()->json(['message' => 'Product Image not found'], 404);
@@ -130,9 +131,9 @@ class ProductImageController extends Controller
     }
 
 
-    public function productsImageDestroy($id)
+    public function productsImageDestroy(Request $request)
     {
-        $productImages = ProductImage::find($id);
+        $productImages = ProductImage::findOrFail($request->input('id'));
         if (!$productImages) {
             return response()->json(['message' => 'Product Image not found'], 404);
         }

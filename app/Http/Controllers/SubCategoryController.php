@@ -51,14 +51,15 @@ class SubCategoryController extends Controller
     }
 
 
-    public function Updatesubcategory(Request $request, $id)
+    public function Updatesubcategory(Request $request)
     {
         $request->validate([
+            'id' => 'required|exists:sub_categories,id',
             'category_id' => 'required',
             'subcategory_name' => 'required',
         ]);
 
-        $subcategory = SubCategory::find($id);
+        $subcategory = SubCategory::find($request->input('id'));
 
         if (!$subcategory) {
             return response()->json(['error' => 'Sub Category not found'], 404);
@@ -71,15 +72,16 @@ class SubCategoryController extends Controller
             $subcategory->image = $filename;
         }
         $subcategory->update([
+            'id' => $request->input('id'),
             'category_id' => $request->input('category_id'),
             'subcategory_name' => $request->input('subcategory_name'),
         ]);
         return response()->json(['success' => 'Sub Category updated successfully.', 'category' => $subcategory], 200);
 
     }
-    public function Destroysubcategory($id)
+    public function Destroysubcategory(Request $request)
     {
-        $subcategory = SubCategory::find($id);
+        $subcategory = SubCategory::find($request->input('id'));
         if (!$subcategory) {
             return response()->json(['message' => 'Sub Category not found'], 404);
         }

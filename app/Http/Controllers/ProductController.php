@@ -50,9 +50,10 @@ class ProductController extends Controller
         ], 200);
     }
 
-    public function productUpdate(Request $request, $id)
+    public function productUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:products,id',
             'name' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
@@ -68,13 +69,14 @@ class ProductController extends Controller
             ], 401);
         }
 
-        $products = Product::find($id);
+        $products = Product::find($request->input('id'));
 
         if (is_null($products)) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'Product not found'], 404);
         }
 
         $products->update([
+            'id' => $request->input('id'),
             'name' => $request->input('name'),
             'category_id' => $request->input('category_id'),
             'subcategory_id' => $request->input('subcategory_id'),
@@ -90,11 +92,11 @@ class ProductController extends Controller
         ], 200);
 
     }
-    public function productDestroy($id)
+    public function productDestroy(Request $request)
     {
-        $product = Product::find($id);
+        $product = Product::find($request->input('id'));
         if (!$product) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'Products not found'], 404);
         }
         $product->delete();
         return response()->json(['message' => 'Product deleted successfully']);

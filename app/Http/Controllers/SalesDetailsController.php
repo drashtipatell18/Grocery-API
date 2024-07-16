@@ -57,9 +57,10 @@ class SalesDetailsController extends Controller
         return response()->json(['message' => 'Sales details Created successfully', 'salesdetails' => $salesdetails], 201);
     }
 
-    public function salesdetailUpdate(Request $request, $id)
+    public function salesdetailUpdate(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [
+            'id' => 'required|exists:sales_details,id',
             'sales_master_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required',
@@ -76,7 +77,7 @@ class SalesDetailsController extends Controller
             ], 403);
         }
 
-        $salesdetails = SalesDetails::find($id);
+        $salesdetails = SalesDetails::find($request->input('id'));
 
         if (is_null($salesdetails)) {
             return response()->json(['message' => 'Salesdetails not found'], 404);
@@ -84,6 +85,7 @@ class SalesDetailsController extends Controller
 
 
         $salesdetails->update([
+            'id' => $request->input('id'),
             'sales_master_id'  => $request->input('sales_master_id'),
             'product_id'       => $request->input('product_id'),
             'quantity'  => $request->input('quantity'),
@@ -97,9 +99,9 @@ class SalesDetailsController extends Controller
             'cart' => $salesdetails,
         ], 200);
     }
-    public function salesdetailDestroy($id)
+    public function salesdetailDestroy(Request $request)
     {
-        $salesdetails = SalesDetails::find($id);
+        $salesdetails = SalesDetails::find($request->input('id'));
         if (!$salesdetails) {
             return response()->json(['message' => 'Sales Detail not found'], 404);
         }

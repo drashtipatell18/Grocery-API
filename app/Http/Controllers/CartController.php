@@ -55,10 +55,11 @@ class CartController extends Controller
         ], 200);
 
     }
-    
-    public function cartUpdate(Request $request,$id)
+
+    public function cartUpdate(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [
+            'id' => 'required|exists:carts,id',
             'user_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required',
@@ -72,7 +73,7 @@ class CartController extends Controller
             ], 403);
         }
 
-        $cart = Cart::find($id);
+        $cart = Cart::find($request->input('id'));
 
         if (is_null($cart)) {
             return response()->json(['message' => 'Cart not found'], 404);
@@ -80,6 +81,7 @@ class CartController extends Controller
 
 
         $cart->update([
+            'id' => $request->input('id'),
             'user_id' => $request->input('user_id'),
             'product_id' => $request->input('product_id'),
             'quantity' => $request->input('quantity'),
@@ -93,9 +95,9 @@ class CartController extends Controller
 
     }
 
-    public function cartDestroy($id)
+    public function cartDestroy(Request $request)
     {
-        $carts = Cart::find($id);
+        $carts = Cart::find($request->input('id'));
         if (!$carts) {
             return response()->json(['message' => 'Cart not found'], 404);
         }

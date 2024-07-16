@@ -62,9 +62,10 @@ class CouponController extends Controller
         return response()->json(['message' => 'Coupon Created successfully', 'coupon' => $coupon], 201);
     }
 
-    public function couponUpdate(Request $request, $id)
+    public function couponUpdate(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [
+            'id' => 'required|exists:coupons,id',
             'name' => 'required',
             'coupon_code' => 'required',
             'discount' => 'required',
@@ -83,7 +84,7 @@ class CouponController extends Controller
         }
 
 
-        $coupon = Coupon::find($id);
+        $coupon = Coupon::find($request->input('id'));
 
         if (is_null($coupon)) {
             return response()->json(['message' => 'Coupon not found'], 404);
@@ -97,6 +98,7 @@ class CouponController extends Controller
         }
 
         $coupon->update([
+            'id' => $request->input('id'),
             'name'      => $request->input('name'),
             'coupon_code'  => $request->input('coupon_code'),
             'coupon_description'  => $request->input('coupon_description'),
@@ -112,9 +114,9 @@ class CouponController extends Controller
             'cart' => $coupon,
         ], 200);
     }
-    public function couponDestroy($id)
+    public function couponDestroy(Request $request)
     {
-        $coupon = Coupon::find($id);
+        $coupon = Coupon::find($request->input('id'));
         if (!$coupon) {
             return response()->json(['message' => 'Coupon not found'], 404);
         }

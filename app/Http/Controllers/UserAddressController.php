@@ -45,8 +45,9 @@ class UserAddressController extends Controller
 
     }
 
-    public function userAddressUpdate(Request $request, $id){
+    public function userAddressUpdate(Request $request){
         $validateRequest = Validator::make($request->all(), [
+            'id' => 'required|exists:user_addresses,id',
             'address' => 'required',
         ]);
 
@@ -58,26 +59,27 @@ class UserAddressController extends Controller
             ], 403);
         }
 
-        $useraddress = UserAddress::find($id);
+        $useraddress = UserAddress::find($request->input('id'));
 
         if (is_null($useraddress)) {
             return response()->json(['message' => 'User Address not found'], 404);
         }
 
         $useraddress->update([
+            'id' => $request->input('id'),
             'user_id'      => $request->input('user_id'),
             'address'  => $request->input('address'),
         ]);
 
         return response()->json([
             'message' => 'User Address updated successfully',
-            'cart' => $useraddress,
+            'useraddress' => $useraddress,
         ], 200);
 
 
     }
-    public function userAddressDestroy($id){
-        $useraddress = UserAddress::find($id);
+    public function userAddressDestroy(Request $request){
+        $useraddress = UserAddress::find($request->input('id'));
         if (!$useraddress) {
             return response()->json(['message' => 'User Address not found'], 404);
         }

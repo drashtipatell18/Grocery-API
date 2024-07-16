@@ -40,9 +40,8 @@ Route::middleware('auth.api')->group(function () {
      Route::get('/category', [CategoryController::class, 'category'])->name('category');
      Route::get('/category/create', [CategoryController::class, 'createCategory'])->name('category.create');
      Route::post('/category/store', [CategoryController::class, 'storeCategory'])->name('category.store');
-     Route::get('/category/edit/{id}', [CategoryController::class, 'categoryEdit'])->name('edit.category');
-     Route::post('/category/update/{id}', [CategoryController::class, 'categoryUpdate'])->name('update.category');
-     Route::get('/category/destroy/{id}',[CategoryController::class,'categoryDestroy'])->name('destroy.category');
+     Route::post('/category/update', [CategoryController::class, 'categoryUpdate'])->name('update.category');
+     Route::get('/category/destroy',[CategoryController::class,'categoryDestroy'])->name('destroy.category');
 
 
     // Sub Category
@@ -50,9 +49,8 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/subcategory', [SubCategoryController::class, 'subcategory'])->name('subcategory');
     Route::get('/subcategory/create', [SubCategoryController::class, 'createsubCategory'])->name('subcategory.create');
     Route::post('/subcategory/store', [SubCategoryController::class, 'storesubCategory'])->name('subcategory.store');
-    Route::get('/subcategory/edit/{id}', [SubCategoryController::class, 'Editsubcategory'])->name('edit.subcategory');
-    Route::post('/subcategory/update/{id}', [SubCategoryController::class, 'Updatesubcategory'])->name('update.subcategory');
-    Route::get('/subcategory/destroy/{id}',[SubCategoryController::class,'Destroysubcategory'])->name('destroy.subcategory');
+    Route::post('/subcategory/update', [SubCategoryController::class, 'Updatesubcategory'])->name('update.subcategory');
+    Route::get('/subcategory/destroy',[SubCategoryController::class,'Destroysubcategory'])->name('destroy.subcategory');
 
 
      // User
@@ -60,9 +58,8 @@ Route::middleware('auth.api')->group(function () {
      Route::get('/user', [UserController::class, 'users'])->name('user');
      Route::get('/user/create',[UserController::class,'userCreate'])->name('create.user');
      Route::post('/user/insert',[UserController::class,'userInsert'])->name('insert.user');
-     Route::get('/user/edit/{id}', [UserController::class, 'userEdit'])->name('edit.user');
-     Route::post('/user/update/{id}', [UserController::class, 'userUpdate'])->name('update.user');
-     Route::get('/user/destroy/{id}',[UserController::class,'userDestroy'])->name('destroy.user');
+     Route::post('/user/update', [UserController::class, 'userUpdate'])->name('update.user');
+     Route::get('/user/destroy',[UserController::class,'userDestroy'])->name('destroy.user');
 
 
       // Products
@@ -70,9 +67,8 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/products', [ProductController::class, 'products'])->name('products');
     Route::get('/product/create',[ProductController::class,'productCreate'])->name('create.product');
     Route::post('/product/insert',[ProductController::class,'productInsert'])->name('insert.product');
-    Route::get('/product/edit/{id}', [ProductController::class, 'productEdit'])->name('edit.product');
-    Route::post('/product/update/{id}', [ProductController::class, 'productUpdate'])->name('update.product');
-    Route::get('/product/destroy/{id}',[ProductController::class,'productDestroy'])->name('destroy.product');
+    Route::post('/product/update', [ProductController::class, 'productUpdate'])->name('update.product');
+    Route::get('/product/destroy',[ProductController::class,'productDestroy'])->name('destroy.product');
 
 
     // Product Image
@@ -80,9 +76,8 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/productsImage', [ProductImageController::class, 'productsImage'])->name('productsImage');
     Route::get('/productImage/create',[ProductImageController::class,'productCreateImage'])->name('create.productImage');
     Route::post('/productImage/store',[ProductImageController::class,'productInsertImage'])->name('insert.productImage');
-    Route::get('/productImage/edit/{id}', [ProductImageController::class, 'productsImageEdit'])->name('edit.productImage');
-    Route::post('/productImage/update/{id}', [ProductImageController::class, 'productsImageUpdate'])->name('update.productImage');
-    Route::get('/productImage/destroy/{id}',[ProductImageController::class,'productsImageDestroy'])->name('destroy.productImage');
+    Route::post('/productImage/update', [ProductImageController::class, 'productsImageUpdate'])->name('update.productImage');
+    Route::get('/productImage/destroy',[ProductImageController::class,'productsImageDestroy'])->name('destroy.productImage');
 
 
     // Rating
@@ -90,7 +85,6 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/ratings', [RatingController::class, 'ratings'])->name('ratings');
     Route::get('/rating/create',[RatingController::class,'ratingCreate'])->name('create.rating');
     Route::post('/rating/insert',[RatingController::class,'ratingtInsert'])->name('insert.rating');
-    Route::get('/rating/edit/{id}', [RatingController::class, 'ratingEdit'])->name('edit.rating');
     Route::post('/rating/update/{id}', [RatingController::class, 'ratingUpdate'])->name('update.rating');
     Route::get('/rating/destroy/{id}',[RatingController::class,'ratingDestroy'])->name('destroy.rating');
 
@@ -99,9 +93,8 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/carts', [CartController::class, 'carts'])->name('carts');
     Route::get('/cart/create',[CartController::class,'cartCreate'])->name('create.cart');
     Route::post('/cart/insert',[CartController::class,'cartInsert'])->name('insert.cart');
-    Route::get('/cart/edit/{id}', [CartController::class, 'cartEdit'])->name('edit.cart');
-    Route::post('/cart/update/{id}', [CartController::class, 'cartUpdate'])->name('update.cart');
-    Route::get('/cart/destroy/{id}',[CartController::class,'cartDestroy'])->name('destroy.cart');
+    Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('update.cart');
+    Route::get('/cart/destroy',[CartController::class,'cartDestroy'])->name('destroy.cart');
 
 
 
@@ -110,9 +103,8 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/wishlists', [WishlistController::class, 'wishlists'])->name('wishlists');
     Route::get('/wishlist/create',[WishlistController::class,'wishlistCreate'])->name('create.wishlist');
     Route::post('/wishlist/insert',[WishlistController::class,'wishlistInsert'])->name('insert.wishlist');
-    Route::get('/wishlist/edit/{id}', [WishlistController::class, 'wishlistEdit'])->name('edit.wishlist');
-    Route::post('/wishlist/update/{id}', [WishlistController::class, 'wishlistUpdate'])->name('update.wishlist');
-    Route::get('/wishlist/destroy/{id}',[WishlistController::class,'wishlistDestroy'])->name('destroy.wishlist');
+    Route::post('/wishlist/update', [WishlistController::class, 'wishlistUpdate'])->name('update.wishlist');
+    Route::get('/wishlist/destroy',[WishlistController::class,'wishlistDestroy'])->name('destroy.wishlist');
 
 
     // User Address
@@ -120,38 +112,32 @@ Route::middleware('auth.api')->group(function () {
     Route::get('/user-address', [UserAddressController::class, 'userAddress'])->name('useraddress');
     Route::get('/user-address/create',[UserAddressController::class,'userAddressCreate'])->name('create.useraddress');
     Route::post('/user-address/insert',[UserAddressController::class,'userAddressInsert'])->name('insert.useraddress');
-    Route::get('/user-address/edit/{id}', [UserAddressController::class, 'userAddressEdit'])->name('edit.useraddress');
-    Route::post('/user-address/update/{id}', [UserAddressController::class, 'userAddressUpdate'])->name('update.useraddress');
-    Route::get('/user-address/destroy/{id}',[UserAddressController::class,'userAddressDestroy'])->name('destroy.useraddress');
+    Route::post('/user-address/update', [UserAddressController::class, 'userAddressUpdate'])->name('update.useraddress');
+    Route::get('/user-address/destroy',[UserAddressController::class,'userAddressDestroy'])->name('destroy.useraddress');
 
-
-
-        // Coupon
+    // Coupon
 
     Route::get('/coupon', [CouponController::class, 'coupon'])->name('coupon');
     Route::get('/coupon/create',[CouponController::class,'couponCreate'])->name('create.coupon');
     Route::post('/coupon/insert',[CouponController::class,'couponInsert'])->name('insert.coupon');
-    Route::get('/coupon/edit/{id}', [CouponController::class, 'couponEdit'])->name('edit.coupon');
-    Route::post('/coupon/update/{id}', [CouponController::class, 'couponUpdate'])->name('update.coupon');
-    Route::get('/coupon/destroy/{id}',[CouponController::class,'couponDestroy'])->name('destroy.coupon');
+    Route::post('/coupon/update', [CouponController::class, 'couponUpdate'])->name('update.coupon');
+    Route::get('/coupon/destroy',[CouponController::class,'couponDestroy'])->name('destroy.coupon');
 
     // SalesMaster
 
     Route::get('/salesmaster', [SalesMasterController::class, 'salesmaster'])->name('salesmaster');
     Route::get('/salesmaster/create',[SalesMasterController::class,'salesmasterCreate'])->name('create.salesmaster');
     Route::post('/salesmaster/insert',[SalesMasterController::class,'salesmasterInsert'])->name('insert.salesmaster');
-    Route::get('/salesmaster/edit/{id}', [SalesMasterController::class, 'salesmasterEdit'])->name('edit.salesmaster');
-    Route::post('/salesmaster/update/{id}', [SalesMasterController::class, 'salesmasterUpdate'])->name('update.salesmaster');
-    Route::get('/salesmaster/destroy/{id}',[SalesMasterController::class,'salesmasterDestroy'])->name('destroy.salesmaster');
+    Route::post('/salesmaster/update', [SalesMasterController::class, 'salesmasterUpdate'])->name('update.salesmaster');
+    Route::get('/salesmaster/destroy',[SalesMasterController::class,'salesmasterDestroy'])->name('destroy.salesmaster');
 
     // SalesDetails
 
     Route::get('/salesdetail', [SalesDetailsController::class, 'salesdetail'])->name('salesdetail');
     Route::get('/salesdetail/create',[SalesDetailsController::class,'salesdetailCreate'])->name('create.salesdetail');
     Route::post('/salesdetail/insert',[SalesDetailsController::class,'salesdetailInsert'])->name('insert.salesdetail');
-    Route::get('/salesdetail/edit/{id}', [SalesDetailsController::class, 'salesdetailEdit'])->name('edit.salesdetail');
-    Route::post('/salesdetail/update/{id}', [SalesDetailsController::class, 'salesdetailUpdate'])->name('update.salesdetail');
-    Route::get('/salesdetail/destroy/{id}',[SalesDetailsController::class,'salesdetailDestroy'])->name('destroy.salesdetail');
+    Route::post('/salesdetail/update', [SalesDetailsController::class, 'salesdetailUpdate'])->name('update.salesdetail');
+    Route::get('/salesdetail/destroy',[SalesDetailsController::class,'salesdetailDestroy'])->name('destroy.salesdetail');
 
 
 });

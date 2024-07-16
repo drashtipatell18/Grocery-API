@@ -54,9 +54,10 @@ class WishlistController extends Controller
 
 
 
-    public function wishlistUpdate(Request $request,$id)
+    public function wishlistUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:wishlist,id',
             'user_id' => 'required',
             'product_id' => 'required',
         ]);
@@ -69,13 +70,14 @@ class WishlistController extends Controller
             ], 401);
         }
 
-        $wishlist = Wishlist::find($id);
+        $wishlist = Wishlist::find($request->input('id'));
 
         if (is_null($wishlist)) {
             return response()->json(['message' => 'Wishlist not found'], 404);
         }
 
         $wishlist->update([
+            'id' => $request->input('id'),
             'user_id' => $request->input('user_id'),
             'product_id' => $request->input('product_id'),
         ]);
@@ -88,9 +90,9 @@ class WishlistController extends Controller
 
     }
 
-    public function wishlistDestroy($id)
+    public function wishlistDestroy(Request $request)
     {
-        $wishlist = Wishlist::find($id);
+        $wishlist = Wishlist::find($request->input('id'));
         if (!$wishlist) {
             return response()->json(['message' => 'Wishlist not found'], 404);
         }

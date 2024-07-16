@@ -53,9 +53,10 @@ class RatingController extends Controller
 
     }
 
-    public function ratingUpdate(Request $request, $id)
+    public function ratingUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:rating,id',
             'product_id' => 'required',
             'customer_name' => 'required',
             'star' => 'required',
@@ -70,13 +71,14 @@ class RatingController extends Controller
             ], 401);
         }
 
-        $ratings = Rating::find($id);
+        $ratings = Rating::find($request->input('id'));
 
         if (is_null($ratings)) {
             return response()->json(['message' => 'Rating not found'], 404);
         }
 
         $ratings->update([
+            'id' => $request->input('id'),
             'product_id' => $request->input('product_id'),
             'customer_name' => $request->input('customer_name'),
             'star' => $request->input('star'),
@@ -90,9 +92,9 @@ class RatingController extends Controller
         ], 200);
 
     }
-    public function ratingDestroy($id)
+    public function ratingDestroy(Request $request)
     {
-        $ratings = Rating::find($id);
+        $ratings = Rating::find($request->input('id'));
         if (!$ratings) {
             return response()->json(['message' => 'User not found'], 404);
         }
