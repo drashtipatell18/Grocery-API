@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function users()
     {
-        $users = User::all();
+        $users = User::where('role',1)->get();
 
         return response()->json([
             'success' => true,
@@ -74,6 +74,7 @@ class UserController extends Controller
             'address'  => $request->input('address'),
             'mobile_no'   => $request->input('mobile_no'),
             'password' => Hash::make($request->password),
+            'role' => 1,
         ]);
 
 
@@ -113,6 +114,7 @@ class UserController extends Controller
             'address'  => $request->input('address'),
             'mobile_no'   => $request->input('mobile_no'),
             'password' => Hash::make($request->password),
+            'role' => 1,
         ]);
 
 
