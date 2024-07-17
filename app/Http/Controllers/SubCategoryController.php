@@ -18,6 +18,28 @@ class SubCategoryController extends Controller
         ], 200);
     }
 
+    public function getSubCategory(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $subcategorys = SubCategory::find($request->input('id'));
+
+        if ($subcategorys) {
+            return response()->json([
+                'success' => true,
+                'data' => $subcategorys
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sub Category not found'
+            ], 404);
+        }
+
+    }
+
     public function createsubCategory(){
         $categorys = Category::all();
         return view('subcategory.create_sub_category',compact('categorys'));

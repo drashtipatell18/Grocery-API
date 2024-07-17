@@ -20,6 +20,30 @@ class UserController extends Controller
             'result' => $users
         ], 200);
     }
+
+    public function getUser(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $usersId = User::find($request->input('id'));
+
+        if ($usersId) {
+            return response()->json([
+                'success' => true,
+                'data' => $usersId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+    }
+
+
     public function userCreate()
     {
         return view('user.create_user');

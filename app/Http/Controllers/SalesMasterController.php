@@ -21,6 +21,29 @@ class SalesMasterController extends Controller
         ], 200);
 
     }
+
+    public function getSalesMaster(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $salesmasterId = SalesMaster::find($request->input('id'));
+
+        if ($salesmasterId) {
+            return response()->json([
+                'success' => true,
+                'data' => $salesmasterId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sales master not found'
+            ], 404);
+        }
+
+    }
+
     public function salesmasterCreate(){
         $users = User::pluck('name', 'id');
         $coupons = Coupon::pluck('name', 'id');

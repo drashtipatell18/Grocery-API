@@ -18,6 +18,30 @@ class CouponController extends Controller
             'result' => $coupons
         ], 200);
     }
+
+
+    public function getCoupon(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $couponId = Coupon::find($request->input('id'));
+
+        if ($couponId) {
+            return response()->json([
+                'success' => true,
+                'data' => $couponId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Coupon not found'
+            ], 404);
+        }
+
+    }
+
     public function couponCreate()
     {
         return view('coupon.create_coupon');

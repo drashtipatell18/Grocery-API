@@ -14,6 +14,29 @@ class ProductImageController extends Controller
         $products = Product::all();
         return view('product_image.create_fileupload', compact('products'));
     }
+
+    public function getProductImage(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $productImageId = ProductImage::find($request->input('id'));
+
+        if ($productImageId) {
+            return response()->json([
+                'success' => true,
+                'data' => $productImageId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product Image not found'
+            ], 404);
+        }
+
+    }
+
     public function productInsertImage(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [

@@ -16,6 +16,27 @@ class CategoryController extends Controller
             'result' => $categorys
         ], 200);
     }
+    public function getCategory(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $category = Category::find($request->input('id'));
+
+        if ($category) {
+            return response()->json([
+                'success' => true,
+                'data' => $category
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found'
+            ], 404);
+        }
+
+    }
     public function createCategory()
     {
         return view('category.create_category');

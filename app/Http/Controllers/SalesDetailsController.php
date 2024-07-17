@@ -20,6 +20,30 @@ class SalesDetailsController extends Controller
         ], 200);
     }
 
+    public function getSalesDetail(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $salesDetailId = SalesDetails::find($request->input('id'));
+
+
+        if ($salesDetailId) {
+            return response()->json([
+                'success' => true,
+                'data' => $salesDetailId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sales Detail not found'
+            ], 404);
+        }
+
+    }
+
+
     public function salesdetailCreate()
     {
         $salesmasters = SalesMaster::pluck('id', 'id');

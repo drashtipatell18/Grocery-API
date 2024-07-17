@@ -18,6 +18,29 @@ class UserAddressController extends Controller
 
 
     }
+
+    public function getUserAddress(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $addressId = UserAddress::find($request->input('id'));
+
+        if ($addressId) {
+            return response()->json([
+                'success' => true,
+                'data' => $addressId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User Addree not found'
+            ], 404);
+        }
+
+    }
+
     public function userAddressCreate(){
         $users = User::pluck('name', 'id');
         return view('user.create_useraddress',compact('users'));

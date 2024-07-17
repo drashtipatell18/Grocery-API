@@ -18,6 +18,29 @@ class CartController extends Controller
         return view('carts.create_cart', compact('users', 'products'));
     }
 
+    public function getCart(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $cartId = Cart::find($request->input('id'));
+
+
+        if ($cartId) {
+            return response()->json([
+                'success' => true,
+                'data' => $cartId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cart not found'
+            ], 404);
+        }
+
+    }
+
     public function cartInsert(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [

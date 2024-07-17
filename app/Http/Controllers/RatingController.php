@@ -14,6 +14,29 @@ class RatingController extends Controller
         $products = Product::all();
         return view('ratings.create_ratings',compact('products'));
     }
+
+    public function getRating(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $ratingId = Rating::find($request->input('id'));
+
+        if ($ratingId) {
+            return response()->json([
+                'success' => true,
+                'data' => $ratingId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Rating not found'
+            ], 404);
+        }
+
+    }
+
     public function ratingtInsert(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [

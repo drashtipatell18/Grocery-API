@@ -38,6 +38,7 @@ Route::middleware('auth.api')->group(function () {
      // Category
 
      Route::get('/category', [CategoryController::class, 'category'])->name('category');
+     Route::get('/getcategory', [CategoryController::class, 'getCategory'])->name('getcategory');
      Route::get('/category/create', [CategoryController::class, 'createCategory'])->name('category.create');
      Route::post('/category/store', [CategoryController::class, 'storeCategory'])->name('category.store');
      Route::post('/category/update', [CategoryController::class, 'categoryUpdate'])->name('update.category');
@@ -47,6 +48,7 @@ Route::middleware('auth.api')->group(function () {
     // Sub Category
 
     Route::get('/subcategory', [SubCategoryController::class, 'subcategory'])->name('subcategory');
+    Route::get('/getsubcategory', [SubCategoryController::class, 'getSubCategory'])->name('getsubcategory');
     Route::get('/subcategory/create', [SubCategoryController::class, 'createsubCategory'])->name('subcategory.create');
     Route::post('/subcategory/store', [SubCategoryController::class, 'storesubCategory'])->name('subcategory.store');
     Route::post('/subcategory/update', [SubCategoryController::class, 'Updatesubcategory'])->name('update.subcategory');
@@ -56,6 +58,7 @@ Route::middleware('auth.api')->group(function () {
      // User
 
      Route::get('/user', [UserController::class, 'users'])->name('user');
+     Route::get('/getuser', [UserController::class, 'getUser'])->name('getuser');
      Route::get('/user/create',[UserController::class,'userCreate'])->name('create.user');
      Route::post('/user/insert',[UserController::class,'userInsert'])->name('insert.user');
      Route::post('/user/update', [UserController::class, 'userUpdate'])->name('update.user');
@@ -65,6 +68,7 @@ Route::middleware('auth.api')->group(function () {
       // Products
 
     Route::get('/products', [ProductController::class, 'products'])->name('products');
+    Route::get('/getproduct', [ProductController::class, 'getProduct'])->name('getproduct');
     Route::get('/product/create',[ProductController::class,'productCreate'])->name('create.product');
     Route::post('/product/insert',[ProductController::class,'productInsert'])->name('insert.product');
     Route::post('/product/update', [ProductController::class, 'productUpdate'])->name('update.product');
@@ -74,6 +78,7 @@ Route::middleware('auth.api')->group(function () {
     // Product Image
 
     Route::get('/productsImage', [ProductImageController::class, 'productsImage'])->name('productsImage');
+    Route::get('/getproductsImage', [ProductImageController::class, 'getProductImage'])->name('getproductImage');
     Route::get('/productImage/create',[ProductImageController::class,'productCreateImage'])->name('create.productImage');
     Route::post('/productImage/store',[ProductImageController::class,'productInsertImage'])->name('insert.productImage');
     Route::post('/productImage/update', [ProductImageController::class, 'productsImageUpdate'])->name('update.productImage');
@@ -83,6 +88,7 @@ Route::middleware('auth.api')->group(function () {
     // Rating
 
     Route::get('/ratings', [RatingController::class, 'ratings'])->name('ratings');
+    Route::get('/getrating', [RatingController::class, 'getRating'])->name('getrating');
     Route::get('/rating/create',[RatingController::class,'ratingCreate'])->name('create.rating');
     Route::post('/rating/insert',[RatingController::class,'ratingtInsert'])->name('insert.rating');
     Route::post('/rating/update/{id}', [RatingController::class, 'ratingUpdate'])->name('update.rating');
@@ -91,6 +97,7 @@ Route::middleware('auth.api')->group(function () {
     // Cart
 
     Route::get('/carts', [CartController::class, 'carts'])->name('carts');
+    Route::get('/getcart', [CartController::class, 'getCart'])->name('getcart');
     Route::get('/cart/create',[CartController::class,'cartCreate'])->name('create.cart');
     Route::post('/cart/insert',[CartController::class,'cartInsert'])->name('insert.cart');
     Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('update.cart');
@@ -101,6 +108,7 @@ Route::middleware('auth.api')->group(function () {
     // WishList
 
     Route::get('/wishlists', [WishlistController::class, 'wishlists'])->name('wishlists');
+    Route::get('/getwishlists', [WishlistController::class, 'getWishlists'])->name('getwishlists');
     Route::get('/wishlist/create',[WishlistController::class,'wishlistCreate'])->name('create.wishlist');
     Route::post('/wishlist/insert',[WishlistController::class,'wishlistInsert'])->name('insert.wishlist');
     Route::post('/wishlist/update', [WishlistController::class, 'wishlistUpdate'])->name('update.wishlist');
@@ -110,6 +118,7 @@ Route::middleware('auth.api')->group(function () {
     // User Address
 
     Route::get('/user-address', [UserAddressController::class, 'userAddress'])->name('useraddress');
+    Route::get('/getuser-address', [UserAddressController::class, 'getUserAddress'])->name('getuser-address');
     Route::get('/user-address/create',[UserAddressController::class,'userAddressCreate'])->name('create.useraddress');
     Route::post('/user-address/insert',[UserAddressController::class,'userAddressInsert'])->name('insert.useraddress');
     Route::post('/user-address/update', [UserAddressController::class, 'userAddressUpdate'])->name('update.useraddress');
@@ -118,6 +127,7 @@ Route::middleware('auth.api')->group(function () {
     // Coupon
 
     Route::get('/coupon', [CouponController::class, 'coupon'])->name('coupon');
+    Route::get('/getcoupon', [CouponController::class, 'getCoupon'])->name('getcoupon');
     Route::get('/coupon/create',[CouponController::class,'couponCreate'])->name('create.coupon');
     Route::post('/coupon/insert',[CouponController::class,'couponInsert'])->name('insert.coupon');
     Route::post('/coupon/update', [CouponController::class, 'couponUpdate'])->name('update.coupon');
@@ -126,6 +136,7 @@ Route::middleware('auth.api')->group(function () {
     // SalesMaster
 
     Route::get('/salesmaster', [SalesMasterController::class, 'salesmaster'])->name('salesmaster');
+    Route::get('/getsalesmaster', [SalesMasterController::class, 'getSalesMaster'])->name('getsalesmaster');
     Route::get('/salesmaster/create',[SalesMasterController::class,'salesmasterCreate'])->name('create.salesmaster');
     Route::post('/salesmaster/insert',[SalesMasterController::class,'salesmasterInsert'])->name('insert.salesmaster');
     Route::post('/salesmaster/update', [SalesMasterController::class, 'salesmasterUpdate'])->name('update.salesmaster');
@@ -134,6 +145,7 @@ Route::middleware('auth.api')->group(function () {
     // SalesDetails
 
     Route::get('/salesdetail', [SalesDetailsController::class, 'salesdetail'])->name('salesdetail');
+    Route::get('/getsalesdetail', [SalesDetailsController::class, 'getSalesDetail'])->name('getsalesdetail');
     Route::get('/salesdetail/create',[SalesDetailsController::class,'salesdetailCreate'])->name('create.salesdetail');
     Route::post('/salesdetail/insert',[SalesDetailsController::class,'salesdetailInsert'])->name('insert.salesdetail');
     Route::post('/salesdetail/update', [SalesDetailsController::class, 'salesdetailUpdate'])->name('update.salesdetail');

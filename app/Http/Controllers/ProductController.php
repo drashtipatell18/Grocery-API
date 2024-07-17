@@ -17,6 +17,30 @@ class ProductController extends Controller
         $sub_categorys = SubCategory::all();
         return view('products.create_products',compact('categorys','sub_categorys'));
     }
+
+    public function getProduct(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $productId = Product::find($request->input('id'));
+
+        if ($productId) {
+            return response()->json([
+                'success' => true,
+                'data' => $productId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
+
+    }
+
+
     public function productInsert(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [

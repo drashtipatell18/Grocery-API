@@ -17,6 +17,28 @@ class WishlistController extends Controller
         return view('wishlist.create_wishlist', compact('users', 'products'));
     }
 
+    public function getWishlists(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $wishlistId = Wishlist::find($request->input('id'));
+
+        if ($wishlistId) {
+            return response()->json([
+                'success' => true,
+                'data' => $wishlistId
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Wishlist not found'
+            ], 404);
+        }
+
+    }
+
     public function wishlistInsert(Request $request)
     {
         $validateRequest = Validator::make($request->all(), [
